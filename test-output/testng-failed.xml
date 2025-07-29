@@ -5,7 +5,7 @@
     <classes>
       <class name="tutorialsninja.register.TC_RF_006">
         <methods>
-          <include name="verifyRegisteringAccountBySubscribingToNewsLetter"/>
+          <include name="verifyRegisteringAccountBySayingNoToNewsLetter"/>
         </methods>
       </class> <!-- tutorialsninja.register.TC_RF_006 -->
     </classes>
