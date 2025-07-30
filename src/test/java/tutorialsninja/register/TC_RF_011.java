@@ -10,6 +10,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
+import utils.CommonUtils;
+
 public class TC_RF_011 {
 	WebDriver driver;
 	
@@ -29,7 +31,7 @@ public class TC_RF_011 {
 		
 		driver.findElement(By.id("input-firstname")).sendKeys("Akshata");
 		driver.findElement(By.id("input-lastname")).sendKeys("Potale");
-		driver.findElement(By.id("input-email")).sendKeys(generateNewEmail());
+		driver.findElement(By.id("input-email")).sendKeys(CommonUtils.generateNewEmail());
 		driver.findElement(By.id("input-telephone")).sendKeys("abcdefg");
 		driver.findElement(By.id("input-password")).sendKeys("Akshata@2202");
 		driver.findElement(By.id("input-confirm")).sendKeys("Akshata@2202");
@@ -42,9 +44,6 @@ public class TC_RF_011 {
 	
 		
 
-	}
-	public String generateNewEmail() {
-		return new Date().toString().replaceAll("\\s", "").replaceAll("\\:", "")+"@gmail.com";
 	}
 
 }

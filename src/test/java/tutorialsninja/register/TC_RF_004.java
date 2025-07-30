@@ -41,9 +41,6 @@ public class TC_RF_004 {
 
 		driver.quit();
 	}
-	
-	public  String generateNewEmail() {
-		return new Date().toString().replaceAll("\\s", "").replaceAll("\\:", "")+"@gmail.com";
-	}
+
 
 }
