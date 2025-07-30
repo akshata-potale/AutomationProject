@@ -43,7 +43,6 @@ public class TC_RF_010 {
 		Thread.sleep(3000);		
 		File srcScreenshot1 = driver.findElement(By.xpath("//form[@class=\"form-horizontal\"]")).getScreenshotAs(OutputType.FILE);
 		org.openqa.selenium.io.FileHandler.copy(srcScreenshot1, new File(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png"));
-		
 		BufferedImage actualBImg = ImageIO.read(new File(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png"));
 		BufferedImage expectedBImg = ImageIO.read(new File(System.getProperty("user.dir")+"\\Screenshots\\sc1Expected.png"));
 		
@@ -51,6 +50,7 @@ public class TC_RF_010 {
 		ImageDiff imgDifference = imgDiffer.makeDiff(expectedBImg, actualBImg);
 		
 		Assert.assertFalse(imgDifference.hasDiff());
+
 		driver.quit();
 				
 		
