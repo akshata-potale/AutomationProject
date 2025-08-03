@@ -6,6 +6,7 @@
       <class name="tutorialsninja.register.TC_RF_014">
         <methods>
           <include name="verifyMandatoryFieldsSymbolAndColorInRegisterAccountPage"/>
+          <include name="teardown"/>
         </methods>
       </class> <!-- tutorialsninja.register.TC_RF_014 -->
     </classes>
