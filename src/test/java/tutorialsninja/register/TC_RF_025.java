@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Tc_RF_025 {
+public class TC_RF_025 {
 	
 	@Test
 	public void verifyBreadcrumbURLHeadingTitleOfRegisterAccountPage() {

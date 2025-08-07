@@ -44,16 +44,22 @@ public class TC_RF_010 {
 		File srcScreenshot1 = driver.findElement(By.xpath("//form[@class=\"form-horizontal\"]")).getScreenshotAs(OutputType.FILE);
 		org.openqa.selenium.io.FileHandler.copy(srcScreenshot1, new File(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png"));
 		
+		Assert.assertFalse(comparetwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png", System.getProperty("user.dir")+"\\Screenshots\\sc1Expected.png"));
+		
+		
+		driver.quit();
+				
+		
+	}
+	
+	public boolean comparetwoScreenshots(String actualImagePath, String expectedImagePath) throws IOException {
 		BufferedImage actualBImg = ImageIO.read(new File(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png"));
 		BufferedImage expectedBImg = ImageIO.read(new File(System.getProperty("user.dir")+"\\Screenshots\\sc1Expected.png"));
 		
 		ImageDiffer imgDiffer = new ImageDiffer();
 		ImageDiff imgDifference = imgDiffer.makeDiff(expectedBImg, actualBImg);
 		
-		Assert.assertFalse(imgDifference.hasDiff());
-		driver.quit();
-				
-		
+		return imgDifference.hasDiff();
 	}
 
 }
