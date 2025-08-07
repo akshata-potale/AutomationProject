@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-08-06T17:49:41 IST" name="Default suite" finished-at="2025-08-06T17:49:45 IST" duration-ms="4343">
+  <suite started-at="2025-08-07T11:25:19 IST" name="Default suite" finished-at="2025-08-07T11:25:48 IST" duration-ms="29234">
     <groups>
     </groups>
-    <test started-at="2025-08-06T17:49:41 IST" name="Default test" finished-at="2025-08-06T17:49:45 IST" duration-ms="4343">
-      <class name="tutorialsninja.register.TC_RF_022">
-        <test-method signature="verifyVisibilityTogglingOfPasswordFieldsOnRegisterAccount()[pri:0, instance:tutorialsninja.register.TC_RF_022@5fe94a96]" started-at="2025-08-06T17:49:41 IST" name="verifyVisibilityTogglingOfPasswordFieldsOnRegisterAccount" finished-at="2025-08-06T17:49:45 IST" duration-ms="4302" status="PASS">
+    <test started-at="2025-08-07T11:25:19 IST" name="Default test" finished-at="2025-08-07T11:25:48 IST" duration-ms="29234">
+      <class name="tutorialsninja.register.TC_RF_023">
+        <test-method signature="verifyWorkingOfEveryLinkOnRegisterAccountPage()[pri:0, instance:tutorialsninja.register.TC_RF_023@5fe94a96]" started-at="2025-08-07T11:25:19 IST" name="verifyWorkingOfEveryLinkOnRegisterAccountPage" finished-at="2025-08-07T11:25:48 IST" duration-ms="29177" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyVisibilityTogglingOfPasswordFieldsOnRegisterAccount -->
-      </class> <!-- tutorialsninja.register.TC_RF_022 -->
+        </test-method> <!-- verifyWorkingOfEveryLinkOnRegisterAccountPage -->
+      </class> <!-- tutorialsninja.register.TC_RF_023 -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
