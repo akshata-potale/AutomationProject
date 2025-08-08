@@ -1,46 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-08-07T15:42:01 IST" name="Default suite" finished-at="2025-08-07T15:42:25 IST" duration-ms="24410">
+  <suite started-at="2025-08-08T12:00:19 IST" name="Default suite" finished-at="2025-08-08T12:00:37 IST" duration-ms="17744">
     <groups>
     </groups>
-    <test started-at="2025-08-07T15:42:01 IST" name="Default test" finished-at="2025-08-07T15:42:25 IST" duration-ms="24410">
-      <class name="tutorialsninja.register.TC_RF_027">
-        <test-method signature="verifyRegisteringAccountInDifferentTestEnvironment(java.lang.String)[pri:0, instance:tutorialsninja.register.TC_RF_027@3c46e67a]" started-at="2025-08-07T15:42:01 IST" name="verifyRegisteringAccountInDifferentTestEnvironment" data-provider="environmentSupplier" finished-at="2025-08-07T15:42:06 IST" duration-ms="5896" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[chrome]]>
-              </value>
-            </param>
-          </params>
+    <test started-at="2025-08-08T12:00:19 IST" name="Default test" finished-at="2025-08-08T12:00:37 IST" duration-ms="17744">
+      <class name="tutorialsninja.register.TC_RF_010">
+        <test-method signature="verifyRegisteringAccountUsingInvalidEmailAddress()[pri:0, instance:tutorialsninja.register.TC_RF_010@765d7657]" started-at="2025-08-08T12:00:19 IST" name="verifyRegisteringAccountUsingInvalidEmailAddress" finished-at="2025-08-08T12:00:37 IST" duration-ms="17694" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyRegisteringAccountInDifferentTestEnvironment -->
-        <test-method signature="verifyRegisteringAccountInDifferentTestEnvironment(java.lang.String)[pri:0, instance:tutorialsninja.register.TC_RF_027@3c46e67a]" started-at="2025-08-07T15:42:06 IST" name="verifyRegisteringAccountInDifferentTestEnvironment" data-provider="environmentSupplier" finished-at="2025-08-07T15:42:18 IST" duration-ms="11955" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[firefox]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- verifyRegisteringAccountInDifferentTestEnvironment -->
-        <test-method signature="verifyRegisteringAccountInDifferentTestEnvironment(java.lang.String)[pri:0, instance:tutorialsninja.register.TC_RF_027@3c46e67a]" started-at="2025-08-07T15:42:18 IST" name="verifyRegisteringAccountInDifferentTestEnvironment" data-provider="environmentSupplier" finished-at="2025-08-07T15:42:25 IST" duration-ms="6520" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[edge]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- verifyRegisteringAccountInDifferentTestEnvironment -->
-      </class> <!-- tutorialsninja.register.TC_RF_027 -->
+        </test-method> <!-- verifyRegisteringAccountUsingInvalidEmailAddress -->
+      </class> <!-- tutorialsninja.register.TC_RF_010 -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
