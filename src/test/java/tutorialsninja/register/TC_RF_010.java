@@ -21,6 +21,7 @@ import org.testng.annotations.Test;
 
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
 import ru.yandex.qatools.ashot.comparison.ImageDiffer;
+import utils.CommonUtils;
 
 public class TC_RF_010 {
 	@Test
@@ -46,8 +47,8 @@ public class TC_RF_010 {
 		Thread.sleep(2000);		
 		File srcScreenshot1 = driver.findElement(By.xpath("//form[@class=\"form-horizontal\"]")).getScreenshotAs(OutputType.FILE);
 		FileHandler.copy(srcScreenshot1, new File(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png"));
-				
-		Assert.assertFalse(compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png", System.getProperty("user.dir")+"\\Screenshots\\sc1Expected.png"));
+		Thread.sleep(3000);		
+		Assert.assertFalse(CommonUtils.compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\sc1Actual.png", System.getProperty("user.dir")+"\\Screenshots\\sc1Expected.png"));
 		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		WebElement emailField = wait.until(ExpectedConditions.elementToBeClickable(By.id("input-email")));
@@ -60,7 +61,7 @@ public class TC_RF_010 {
 		Thread.sleep(2000);		
 		File srcScreenshot2 = driver.findElement(By.xpath("//form[@class=\"form-horizontal\"]")).getScreenshotAs(OutputType.FILE);
 		FileHandler.copy(srcScreenshot2, new File(System.getProperty("user.dir")+"\\Screenshots\\sc2Actual.png"));
-		Assert.assertFalse(compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\sc2Actual.png", System.getProperty("user.dir")+"\\Screenshots\\sc2Expected.png"));
+		Assert.assertFalse(CommonUtils.compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\sc2Actual.png", System.getProperty("user.dir")+"\\Screenshots\\sc2Expected.png"));
 		
 		driver.findElement(By.id("input-email")).clear();
 		driver.findElement(By.id("input-email")).sendKeys("akshatap261@gmail");
@@ -80,29 +81,11 @@ public class TC_RF_010 {
 		FileHandler.copy(srcScreenshot3, new File(System.getProperty("user.dir")+"\\Screenshots\\sc3Actual.png"));
 		
 				
-		Assert.assertFalse(compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\sc3Actual.png", System.getProperty("user.dir")+"\\Screenshots\\sc3Expected.png"));
+		Assert.assertFalse(CommonUtils.compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\sc3Actual.png", System.getProperty("user.dir")+"\\Screenshots\\sc3Expected.png"));
 
 		driver.quit();
 				
 	}
 	
-	public boolean compareTwoScreenshots(String actualImagePath, String expectedImagePath) {
-		BufferedImage actualBImg=null;
-		BufferedImage expectedBImg = null;
-		try {
-			actualBImg = ImageIO.read(new File(actualImagePath));
-			expectedBImg = ImageIO.read(new File(expectedImagePath));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		ImageDiffer imgDiffer = new ImageDiffer();
-		ImageDiff imgDifference = imgDiffer.makeDiff(expectedBImg, actualBImg);
-		
-		return imgDifference.hasDiff();
-
-	}
 
 }
