@@ -7,22 +7,41 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TC_RF_023 {
+import base.Base;
+
+public class TC_RF_023 extends Base{
 	
-	@Test
-	public void verifyWorkingOfEveryLinkOnRegisterAccountPage() {
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		driver.get("https://tutorialsninja.com/demo");
+	WebDriver driver;
+	
+	@AfterMethod
+	public void teardown() {
+		if(driver!=null) {
+			driver.quit();
+		}	
+	}
+	
+	@BeforeMethod
+	public void setup() {
 		
+		driver = openBrowserAndApplication();		
 		driver.findElement(By.xpath("//span[text()='My Account']")).click();
 		driver.findElement(By.linkText("Register")).click();
+	}	
+
+	@Test
+	public void verifyWorkingOfEveryLinkOnRegisterAccountPage() throws InterruptedException {
+	
 
 		driver.findElement(By.xpath("//a//i[@class='fa fa-phone']")).click();
 		Assert.assertTrue(driver.findElement(By.xpath("//ul[@class=\"breadcrumb\"]/li/a[text()='Contact Us']")).isDisplayed());
@@ -57,6 +76,7 @@ public class TC_RF_023 {
 		
 		WebElement homeIcon = driver.findElement(By.cssSelector("a[href*='route=common/home']"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", homeIcon);
+		Thread.sleep(2000);
 		Assert.assertEquals(driver.getCurrentUrl(),"https://tutorialsninja.com/demo/index.php?route=common/home");
 		driver.navigate().back();
 		

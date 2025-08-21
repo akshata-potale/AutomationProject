@@ -11,25 +11,42 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import base.Base;
 import utils.CommonUtils;
 
-public class TC_RF_018 {
+public class TC_RF_018 extends Base{
 	
-	@Test
-	public void veifyRegisteringAccountFieldsHeightWidthAllignment() throws IOException {
+WebDriver driver;
+	
+	@AfterMethod
+	public void teardown() {
+		if(driver!=null) {
+			driver.quit();
+		}	
+	}
+	
+	@BeforeMethod
+	public void setup() {
 		
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		driver.get("https://tutorialsninja.com/demo");
-		
+		driver = openBrowserAndApplication();		
 		driver.findElement(By.xpath("//span[text()='My Account']")).click();
 		driver.findElement(By.linkText("Register")).click();
-		
+	}
+	
+	@Test
+	public void veifyRegisteringAccountFieldsHeightWidthAllignment() throws IOException, InterruptedException {
+		String browserName = "firefox";
+
 		String expectedHeight = "34px";
 		String expectedWidth = "701.25px";
 		
@@ -137,6 +154,7 @@ public class TC_RF_018 {
 		String actualTelephoneFieldWidth = telephoneField.getCssValue("width");
 		Assert.assertEquals(actualTelephoneFieldHeight, expectedHeight);
 		Assert.assertEquals(actualTelephoneFieldWidth, expectedWidth);
+		Thread.sleep(2000);
 //		
 		continueButton = driver.findElement(By.xpath("//input[@value='Continue']"));
 		telephoneField.sendKeys("");
@@ -286,8 +304,17 @@ public class TC_RF_018 {
 		passwordField.clear();
 		passwordField.sendKeys("abcdefghijabcdefghijk");
 		continueButton.click();
-//		Assert.assertEquals(driver.findElement(By.xpath("//input[@id='input-password']/following-sibling::div")).getText(), expectedWarning);
-		
+		boolean state = false;
+		try {
+			String actualWarning = driver.findElement(By.xpath("//input[@id='input-password']/following-sibling::div")).getText();
+			
+			if(actualWarning.equals(expectedWarning)) {
+				state = true;
+			}
+		} catch (NoSuchElementException e) {
+			state = false;
+		}
+		Assert.assertTrue(state);		
 //		//------------------------------------------------------
 //		
 		String actualConfirmPasswordFieldHeight = driver.findElement(By.id("input-confirm")).getCssValue("height");
@@ -300,7 +327,20 @@ public class TC_RF_018 {
 		File srcScreenshot = ts.getScreenshotAs(OutputType.FILE);
 		FileHandler.copy(srcScreenshot, new File(System.getProperty("user.dir")+"\\Screenshots\\registerPageActualAllignment.png"));
 		
-		Assert.assertFalse(CommonUtils.compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\registerPageActualAllignment.png", System.getProperty("user.dir")+"\\Screenshots\\registerPageExpectedAllignment.png"));
+		
+		if(browserName.equals("chrome")) {
+			Assert.assertFalse(CommonUtils.compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\registerPageActualAllignment.png",
+					System.getProperty("user.dir")+"\\Screenshots\\registerPageExpectedAllignment.png"));
+
+		}else if(browserName.equals("firefox")) {
+			Assert.assertFalse(CommonUtils.compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\registerPageActualAllignment.png",
+					System.getProperty("user.dir")+"\\Screenshots\\registerPageFirefoxExpectedAllignment.png"));
+
+		}else if(browserName.equals("edge")) {
+			Assert.assertFalse(CommonUtils.compareTwoScreenshots(System.getProperty("user.dir")+"\\Screenshots\\registerPageActualAllignment.png",
+					System.getProperty("user.dir")+"\\Screenshots\\registerPageEdgeExpectedAllignment.png"));
+
+		}
 
 		driver.quit();
 

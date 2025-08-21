@@ -8,30 +8,35 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import base.Base;
 import utils.CommonUtils;
 
-public class TC_RF_027 {
-
-	@Test(dataProvider = "environmentSupplier")
-	public void verifyRegisteringAccountInDifferentTestEnvironment(String env) {
-		String browserName = env;
-		WebDriver driver =null; 
-		if(browserName.equals("chrome")) {
-			driver  = new ChromeDriver();
-		}else if(browserName.equals("firefox")){
-			driver = new FirefoxDriver();
-		}else if(browserName.equals("edge")) {
-			driver = new EdgeDriver();
-		}
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.get("https://tutorialsninja.com/demo");
+public class TC_RF_027 extends Base{
+	
+	WebDriver driver;
+	
+	@AfterMethod
+	public void teardown() {
+		if(driver!=null) {
+			driver.quit();
+		}	
+	}
+	
+	@BeforeMethod
+	public void setup() {
 		
+		driver = openBrowserAndApplication();		
 		driver.findElement(By.xpath("//span[text()='My Account']")).click();
 		driver.findElement(By.linkText("Register")).click();
+	}	
+
+	@Test
+	public void verifyRegisteringAccountInDifferentTestEnvironment(String env) {
 		
 		driver.findElement(By.id("input-firstname")).sendKeys("Arun");
 		driver.findElement(By.id("input-lastname")).sendKeys("Motoori");
@@ -48,12 +53,6 @@ public class TC_RF_027 {
 		driver.findElement(By.xpath("//a[text()='Continue']")).click();
 		Assert.assertEquals(driver.getTitle(),"My Account");
 		
-		driver.quit();
 	}
 	
-	@DataProvider(name="environmentSupplier")
-	public Object[][] passTestEnvironments() {
-		Object[][] env = {{"chrome"},{"firefox"},{"edge"}};
-		return env;
-	}
 }

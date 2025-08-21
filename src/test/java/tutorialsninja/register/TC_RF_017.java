@@ -3,33 +3,43 @@ package tutorialsninja.register;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import base.Base;
 import utils.CommonUtils;
 
-public class TC_RF_017 {
+public class TC_RF_017 extends Base{
 	WebDriver driver;
 	
 	@AfterMethod
 	public void teardown() {
-		driver.quit();
+		if(driver!=null) {
+			driver.quit();
+		}	
 	}
 	
+	@BeforeMethod
+	public void setup() {
+		
+		driver = openBrowserAndApplication();
+		
+		driver.findElement(By.xpath("//span[text()='My Account']")).click();
+		driver.findElement(By.linkText("Register")).click();
+	}	
 	
 	@Test (dataProvider="PasswordProvider")
 	public void verifyRegisteringAccountAndCheckingPasswordComplexityStandards(String passwordText) {
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.manage().window().maximize();
-		driver.get("https://tutorialsninja.com/demo");
-		driver.findElement(By.xpath("//span[text()='My Account']")).click();
-		driver.findElement(By.linkText("Register")).click();
-		
 		driver.findElement(By.id("input-firstname")).sendKeys("Akshata");
 		driver.findElement(By.id("input-lastname")).sendKeys("Potale");
 		driver.findElement(By.id("input-email")).sendKeys(CommonUtils.generateNewEmail());
@@ -41,7 +51,17 @@ public class TC_RF_017 {
 		driver.findElement(By.xpath("//input[@value='Continue']")).click();
 		
 		String warningMessage = "Password entered doesnot match with Complexity Standards";
-		Assert.assertEquals(driver.findElement(By.xpath("//input[@id=\"input-password\"]/following-sibling::div")).getText(), warningMessage);
+		
+		Boolean state = false;
+		try {
+			String actualWarningMessage = driver.findElement(By.xpath("//input[@id=\"input-password\"]/following-sibling::div")).getText();
+			if(actualWarningMessage.equals(warningMessage)) {
+				state = true;
+			}
+		}catch(NoSuchElementException e) {
+			state = false;
+		}
+		Assert.assertTrue(state);
 		Assert.assertFalse(driver.findElement(By.xpath("//ul[@class='breadcrumb']//a[text()='Success']")).isDisplayed());
 	}
 	

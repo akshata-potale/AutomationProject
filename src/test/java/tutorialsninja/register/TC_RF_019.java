@@ -5,30 +5,43 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
+import base.Base;
 import utils.CommonUtils;
 
-public class TC_RF_019 {
+public class TC_RF_019 extends Base{
 	
 	WebDriver driver;
 	
-	@AfterTest
+	@AfterMethod
 	public void teardown() {
-		driver.quit();
+		if(driver!=null) {
+			driver.quit();
+		}	
 	}
+	
+	@BeforeMethod
+	public void setup() {
+		
+		driver = openBrowserAndApplication();		
+		driver.findElement(By.xpath("//span[text()='My Account']")).click();
+		driver.findElement(By.linkText("Register")).click();
+	}	
 	
 	@Test
 	public void verifyLeadingAndTrailingSpacesWhileRegisteringAccount() {
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-		driver.get("https://tutorialsninja.com/demo");
 		
-		driver.findElement(By.xpath("//span[text()='My Account']")).click();
-		driver.findElement(By.linkText("Register")).click();
+		SoftAssert softassert  = new SoftAssert();
 		String enteredFirstname = "     Akshata     ";
 		driver.findElement(By.id("input-firstname")).sendKeys(enteredFirstname);
 		String enteredLastname = "     Potale     ";
@@ -46,11 +59,11 @@ public class TC_RF_019 {
 		driver.findElement(By.xpath("//a[@class='btn btn-primary'][text()='Continue']")).click();
 		driver.findElement(By.linkText("Edit your account information")).click();
 		
-		Assert.assertEquals(driver.findElement(By.id("input-firstname")).getAttribute("value"), enteredFirstname.trim());
-		Assert.assertEquals(driver.findElement(By.id("input-lastname")).getAttribute("value"), enteredLastname.trim());
-		Assert.assertEquals(driver.findElement(By.id("input-email")).getAttribute("value"), enteredEmail.trim());
-		Assert.assertEquals(driver.findElement(By.id("input-telephone")).getAttribute("value"), enteredTelephone.trim());
-
+		softassert.assertEquals(driver.findElement(By.id("input-firstname")).getAttribute("value"), enteredFirstname.trim());
+		softassert.assertEquals(driver.findElement(By.id("input-lastname")).getAttribute("value"), enteredLastname.trim());
+		softassert.assertEquals(driver.findElement(By.id("input-email")).getAttribute("value"), enteredEmail.trim());
+		softassert.assertEquals(driver.findElement(By.id("input-telephone")).getAttribute("value"), enteredTelephone.trim());
+		softassert.assertAll();
 
 
 

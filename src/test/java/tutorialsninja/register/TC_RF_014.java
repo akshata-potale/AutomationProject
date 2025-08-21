@@ -7,29 +7,39 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TC_RF_014 {
+import base.Base;
+
+public class TC_RF_014 extends Base{
 	WebDriver driver;
 	
 	@AfterMethod
 	public void teardown() {
-		driver.quit();
+		if(driver!=null) {
+			driver.quit();
+		}	
 	}
 	
-	@Test
-	public void verifyMandatoryFieldsSymbolAndColorInRegisterAccountPage() {
+	@BeforeMethod
+	public void setup() {
 		
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.manage().window().maximize();
-		driver.get("https://tutorialsninja.com/demo");
-		
+		driver = openBrowserAndApplication();		
 		driver.findElement(By.xpath("//span[text()='My Account']")).click();
 		driver.findElement(By.linkText("Register")).click();
-		
+	}
+
+
+	
+	@Test
+	public void verifyMandatoryFieldsSymbolAndColorInRegisterAccountPage()  {
 		WebElement firstNameLabel = driver.findElement(By.cssSelector("label[for=\"input-firstname\"]"));
 		
 		String expectedContent = "\"* \"";
@@ -38,7 +48,7 @@ public class TC_RF_014 {
 		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		String fnContent = (String)jse.executeScript("return window.getComputedStyle(arguments[0], '::before').getPropertyValue('content');", firstNameLabel);
 		String fnColor = (String)jse.executeScript("return window.getComputedStyle(arguments[0], '::before').getPropertyValue('color');", firstNameLabel);
-		
+
 		Assert.assertEquals(fnContent, expectedContent);
 		Assert.assertEquals(fnColor, expectedColor);
 		
@@ -87,7 +97,7 @@ public class TC_RF_014 {
 		WebElement privacyPolicyLabel = driver.findElement(By.cssSelector("[class='pull-right']"));
 		
 		String privacyPolicyContent = (String)jse.executeScript("return window.getComputedStyle(arguments[0], '::before').getPropertyValue('content');", privacyPolicyLabel);
-		String privacyPolicyColor = (String)jse.executeScript("return window.getComputedStyle(arguments[0], '::before').getPropertyValue('color');", privacyPolicyLabel);		
+		String privacyPolicyColor = (String)jse.executeScript("return window.getComputedStyle(arguments[0], '::before').getPropertyValue('color');", privacyPolicyLabel);	
 		Assert.assertEquals(privacyPolicyContent, expectedContent);
 		Assert.assertEquals(privacyPolicyColor, expectedColor);
 		
